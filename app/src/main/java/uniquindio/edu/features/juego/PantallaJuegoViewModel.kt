@@ -39,7 +39,7 @@ class PantallaJuegoViewModel : ViewModel() {
     fun voltearCarta(idCarta: Int) {
         val estadoActual = _estadoJuego.value
 
-        // Validaciones
+
         if (!estadoActual.puedeVoltearse) return
         if (estadoActual.cartasVolteadas.contains(idCarta)) return
         if (estadoActual.cartas[idCarta].estaEnparejada) return
@@ -65,7 +65,7 @@ class PantallaJuegoViewModel : ViewModel() {
         viewModelScope.launch {
             _estadoJuego.value = estadoActual.copy(puedeVoltearse = false)
 
-            delay(500) // Pequeño delay para ver ambas cartas
+            delay(500)
 
             if (casoUsoJuego.sonCartasIguales(carta1, carta2)) {
                 // ¡Pareja encontrada!

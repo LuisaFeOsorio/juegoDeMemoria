@@ -25,17 +25,8 @@ class RepositorioResultado {
         resultadosActuales.add(resultado)
         _resultados.value = resultadosActuales
 
-        actualizarEstadisticas(resultado)
     }
 
-    private fun actualizarEstadisticas(resultado: ResultadoJuego) {
-        cantidadJuegosJugados++
-
-        // Mejor puntuación es el menor número de movimientos
-        if (mejorPuntuacion == 0 || resultado.movimientos < mejorPuntuacion) {
-            mejorPuntuacion = resultado.movimientos
-        }
-    }
 
     fun obtenerEstadoInicio(): EstadoInicio {
         return EstadoInicio(
