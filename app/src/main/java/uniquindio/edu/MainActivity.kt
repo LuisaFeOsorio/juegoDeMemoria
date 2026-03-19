@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import uniquindio.edu.core.navigation.Pantalla
 import uniquindio.edu.core.theme.TemaMuecaMemoria
 import uniquindio.edu.features.inicio.presentacion.PantallaInicioScreen
 import uniquindio.edu.features.inicio.presentacion.PantallaInicioViewModel
@@ -47,7 +46,7 @@ fun PantallaApp() {
     val pantallaActual = remember { mutableStateOf("inicio") }
 
     val vistaModeloInicio = PantallaInicioViewModel()
-    val vistaModeloJuego = PantallaJuegoViewModel()
+    val vistaModeloJuego = remember { PantallaJuegoViewModel() }
     val vistaModeloResultado = PantallaResultadoViewModel()
 
     when (pantallaActual.value) {
