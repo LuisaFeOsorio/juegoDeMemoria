@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import uniquindio.edu.data.repository.RepositorioResultado
 import uniquindio.edu.data.repository.ResultadoJuego
 
+
 data class EstadoResultado(
     val parejasEncontradas: Int = 0,
     val movimientos: Int = 0,
@@ -14,9 +15,9 @@ data class EstadoResultado(
     val esNuevoRecord: Boolean = false
 )
 
-class PantallaResultadoViewModel(
-    private val repositorio: RepositorioResultado = RepositorioResultado()
-) : ViewModel() {
+class PantallaResultadoViewModel : ViewModel() {
+
+    private val repositorio = RepositorioResultado.obtenerInstancia()
 
     private val _estadoResultado = MutableStateFlow(EstadoResultado())
     val estadoResultado: StateFlow<EstadoResultado> = _estadoResultado

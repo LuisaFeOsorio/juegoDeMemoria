@@ -1,4 +1,4 @@
-package uniquindio.edu.ui.theme
+package uniquindio.edu.core.theme
 
 
 import androidx.compose.ui.graphics.Color

@@ -1,6 +1,5 @@
 package uniquindio.edu.data.repository
 
-
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import uniquindio.edu.domain.model.EstadoInicio
@@ -12,7 +11,7 @@ data class ResultadoJuego(
     val fechaJuego: Long = System.currentTimeMillis()
 )
 
-class RepositorioResultado {
+class RepositorioResultado private constructor() {
 
     private val _resultados = MutableStateFlow<List<ResultadoJuego>>(emptyList())
     val resultados: StateFlow<List<ResultadoJuego>> = _resultados
@@ -25,8 +24,16 @@ class RepositorioResultado {
         resultadosActuales.add(resultado)
         _resultados.value = resultadosActuales
 
+        actualizarEstadisticas(resultado)
     }
 
+    private fun actualizarEstadisticas(resultado: ResultadoJuego) {
+        cantidadJuegosJugados++
+
+        if (mejorPuntuacion == 0 || resultado.movimientos < mejorPuntuacion) {
+            mejorPuntuacion = resultado.movimientos
+        }
+    }
 
     fun obtenerEstadoInicio(): EstadoInicio {
         return EstadoInicio(
@@ -40,13 +47,14 @@ class RepositorioResultado {
         return _resultados.value.lastOrNull()
     }
 
-    fun obtenerTodosResultados(): List<ResultadoJuego> {
-        return _resultados.value
-    }
 
-    fun limpiarResultados() {
-        _resultados.value = emptyList()
-        mejorPuntuacion = 0
-        cantidadJuegosJugados = 0
+    companion object {
+        private var instancia: RepositorioResultado? = null
+
+        fun obtenerInstancia(): RepositorioResultado {
+            return instancia ?: synchronized(this) {
+                RepositorioResultado().also { instancia = it }
+            }
+        }
     }
 }

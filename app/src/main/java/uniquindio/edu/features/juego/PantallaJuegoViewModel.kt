@@ -1,6 +1,7 @@
 package uniquindio.edu.features.juego
 
 
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 
@@ -39,7 +40,6 @@ class PantallaJuegoViewModel : ViewModel() {
     fun voltearCarta(idCarta: Int) {
         val estadoActual = _estadoJuego.value
 
-
         if (!estadoActual.puedeVoltearse) return
         if (estadoActual.cartasVolteadas.contains(idCarta)) return
         if (estadoActual.cartas[idCarta].estaEnparejada) return
@@ -51,7 +51,6 @@ class PantallaJuegoViewModel : ViewModel() {
             cartas = casoUsoJuego.actualizarCartaVolteada(estadoActual.cartas, idCarta)
         )
 
-        // Si ya hay 2 cartas volteadas, validar
         if (cartasVoltadasActualizadas.size == 2) {
             verificarSiHayPareja(cartasVoltadasActualizadas)
         }
@@ -68,7 +67,6 @@ class PantallaJuegoViewModel : ViewModel() {
             delay(500)
 
             if (casoUsoJuego.sonCartasIguales(carta1, carta2)) {
-                // ¡Pareja encontrada!
                 val cartasActualizadas = casoUsoJuego.actualizarCartasEnparejadas(
                     estadoActual.cartas,
                     idsCartasVolteadas
@@ -85,7 +83,6 @@ class PantallaJuegoViewModel : ViewModel() {
                     estado = if (esJuegoGanado) EstadoJuegoEnum.GANADO else EstadoJuegoEnum.JUGANDO
                 )
             } else {
-                // Parejas no coinciden, volver a ocultar
                 delay(500)
 
                 _estadoJuego.value = estadoActual.copy(
